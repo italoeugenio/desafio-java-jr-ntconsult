@@ -53,20 +53,26 @@ public class LivroService {
     }
 
     public LivroResponseDTO atualizarLivro(LivroRequestDTO data, Long id){
+        log.info("Atualizando livro - id: {}", id);
         LivroModel livro = livroRepository.findById(id).orElseThrow(() -> new LivroNaoEncontrado("Não encontramos nenhum livro com o id " + id));
         BeanUtils.copyProperties(data, livro);
         livro.setAtualizadoEm(LocalDateTime.now());
         livroRepository.save(livro);
+        log.info("Livro atualizado com sucesso - id: {}, novo título: {}", id, livro.getTitulo());
         return this.livroMapper.modelToDtoResponse(livro);
     }
 
     public LivroResponseDTO encontrarPeloId(Long id){
+        log.info("Buscando livro - id: {}", id);
         LivroModel livro = livroRepository.findById(id).orElseThrow(() -> new LivroNaoEncontrado("Não encontramos nenhum livro com o id " + id));
+        log.info("Livro encontrado - id: {}, título: {}", id, livro.getTitulo());
         return this.livroMapper.modelToDtoResponse(livro);
     }
 
     public void deletarLivroPeloId(Long id) {
+        log.info("Deletando livro - id: {}", id);
         LivroModel livro = livroRepository.findById(id).orElseThrow(() -> new LivroNaoEncontrado("Não encontramos nenhum livro com o id " + id));
+        log.info("Livro deletado com sucesso - id: {}, título: {}", id, livro.getTitulo());
         livroRepository.delete(livro);
     }
 }
