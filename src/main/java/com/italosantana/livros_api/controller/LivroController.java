@@ -6,7 +6,6 @@ import com.italosantana.livros_api.domain.dtos.LivroResponseDTO;
 import com.italosantana.livros_api.service.LivroService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +32,7 @@ public class LivroController {
     public ResponseEntity<LivroPaginacaoResponseDTO> listarTodos(
             @RequestParam(defaultValue = "1") Integer numeroDaPagina){
         log.info("Recebida requisição GET /livros - Página solicitada: {}", numeroDaPagina);
-        return ResponseEntity.ok(livroService.listarTodos(numeroDaPagina));
+        return ResponseEntity.ok(livroService.listarLivros(numeroDaPagina));
     }
 
     @PutMapping("/{id}")

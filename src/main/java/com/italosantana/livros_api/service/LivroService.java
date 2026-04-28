@@ -37,7 +37,7 @@ public class LivroService {
         return livroMapper.modelToDtoResponse(livroModel);
     }
 
-    public LivroPaginacaoResponseDTO listarTodos(Integer numeroDaPagina) {
+    public LivroPaginacaoResponseDTO listarLivros(Integer numeroDaPagina) {
         log.info("Listagem de livros solicitada. Página recebida: {}", numeroDaPagina);
         if (numeroDaPagina <= 0) {
             log.warn("Número de página inválido recebido: {}", numeroDaPagina);
