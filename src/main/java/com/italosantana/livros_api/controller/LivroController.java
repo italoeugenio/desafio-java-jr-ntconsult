@@ -1,16 +1,15 @@
 package com.italosantana.livros_api.controller;
 
+import com.italosantana.livros_api.domain.dtos.LivroPaginacaoResponseDTO;
 import com.italosantana.livros_api.domain.dtos.LivroRequestDTO;
 import com.italosantana.livros_api.domain.dtos.LivroResponseDTO;
 import com.italosantana.livros_api.service.LivroService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -23,10 +22,38 @@ public class LivroController {
         this.livroService = livroService;
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<LivroResponseDTO> salvarLivro(@Valid @RequestBody LivroRequestDTO data){
-        log.info("Recebida requisição POST /salvando livro: {}", data.titulo());
-        var response = livroService.salvarLivro(data);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        log.info("Recebida requisição POST /livros - livro: {}", data.titulo());
+        var livro = livroService.salvarLivro(data);
+        return ResponseEntity.status(HttpStatus.CREATED).body(livro);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<LivroPaginacaoResponseDTO> listarTodos(
+            @RequestParam(defaultValue = "1") Integer numeroDaPagina){
+        log.info("Recebida requisição GET /livros - Página solicitada: {}", numeroDaPagina);
+        return ResponseEntity.ok(livroService.listarTodos(numeroDaPagina));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<LivroResponseDTO> atualizarLivro(@Valid @RequestBody LivroRequestDTO data, @PathVariable("id") Long id){
+        log.info("Recebida requisição PUT /livros/{} - Id solicitada: {}", id, id);
+        var livroAtualizado = livroService.atualizarLivro(data, id);
+        return ResponseEntity.status(HttpStatus.OK).body(livroAtualizado);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<LivroResponseDTO> encontrarPeloId(@PathVariable("id") Long id){
+        log.info("Recebida requisição GET /livros/{} - buscando livro por id", id);
+        LivroResponseDTO livro = livroService.encontrarPeloId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(livro);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarLivroPeloId(@PathVariable("id") Long id){
+        log.info("Recebida requisição DELETE /livros/{} - Id solicitada: {}", id, id);
+        livroService.deletarLivroPeloId(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

@@ -3,9 +3,7 @@ package com.italosantana.livros_api.domain.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 
 @Entity(name = "livro")
 @NoArgsConstructor
@@ -22,6 +20,6 @@ public class LivroModel {
     private String titulo;
     private String autor;
     private Integer anoPublicacao;
-    private LocalDateTime creadoEm = LocalDateTime.now();
+    private LocalDateTime criadoEm = LocalDateTime.now();
     private LocalDateTime atualizadoEm = LocalDateTime.now();
 }
