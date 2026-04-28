@@ -119,7 +119,7 @@ class LivroServiceTest {
     }
 
     @Test
-    @DisplayName("Deve lançar um exception de LivroNaoEncontrado")
+    @DisplayName("Deve lançar um exception de LivroNaoEncontrado ao tentar atualizar o livro pelo ID")
     void atualizarLivroCaso2() {
         when(livroRepository.findById(livroModel.getId())).thenReturn(Optional.empty());
 
@@ -146,7 +146,7 @@ class LivroServiceTest {
     }
 
     @Test
-    @DisplayName("Deve lançar um exception de LivroNaoEncontrado")
+    @DisplayName("Deve lançar um exception de LivroNaoEncontrado ao tentar encontrar o livro pelo ID")
     void encontrarPeloIdCaso2() {
         when(livroRepository.findById(livroModel.getId())).thenReturn(Optional.empty());
 
@@ -167,7 +167,7 @@ class LivroServiceTest {
     }
 
     @Test
-    @DisplayName("Deve lançar um exception de LivroNaoEncontrado")
+    @DisplayName("Deve lançar um exception de LivroNaoEncontrado ao tentar deletar o livro pelo ID")
     void deletarLivroPeloIdCaso2() {
         when(livroRepository.findById(livroModel.getId())).thenReturn(Optional.empty());
 
