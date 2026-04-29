@@ -360,7 +360,7 @@ src/
 - **Paginação:** a listagem usa paginação para evitar sobrecarga em consultas com muitos registros.
 - **Rede isolada no Docker:** o banco de dados não é acessível diretamente por serviços externos à `database-network`, garantindo maior segurança na comunicação entre os containers.
 - **Stack Trace:** foi configurado `server.error.include-stacktrace=never` no `application.properties` para evitar o vazamento de informações sensíveis (stack trace) para o cliente, seguindo boas práticas de segurança.
-
+- **Seed de dados controlado por profile:** para simular uma aplicação real, foi utilizado o profile `!prod` para evitar que dados de teste fossem inseridos no ambiente de produção. Dessa forma, o seed é executado apenas em ambientes não produtivos, garantindo que o ambiente `prod` permaneça limpo e seguro.
 ## 🚀 Melhorias que eu faria futuramente
 
 - Criar documentação da API utilizando ferramentas como Swagger para facilitar a visualização e o teste dos endpoints.
