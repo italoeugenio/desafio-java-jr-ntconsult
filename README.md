@@ -9,9 +9,7 @@ API REST para gerenciamento de livros, desenvolvida com Spring Boot como parte d
 - **Nome:** Ítalo Cezar Eugênio de Santana
 - **Email:** italoeugenio539@gmail.com
 - **Telefone:** (61) 99843-0733
-- **Linkedin:**   www.linkedin.com/in/italoeugenio
-
-
+- **Linkedin:** www.linkedin.com/in/italoeugenio
 
 ---
 
@@ -215,10 +213,15 @@ Ao iniciar a aplicação com o banco vazio, **10 livros são inseridos automatic
 
 Base URL: `/livros`
 
+> ℹ️ Todos os endpoints consomem e produzem `Content-Type: application/json`.
+
+---
+
 ### ➕ Cadastrar Livro
 
 ```
 POST /livros
+Content-Type: application/json
 ```
 
 **Body:**
@@ -231,6 +234,9 @@ POST /livros
 ```
 
 **Resposta:** `201 Created`
+```
+Content-Type: application/json
+```
 ```json
 {
   "id": 1,
@@ -248,11 +254,14 @@ POST /livros
 GET /livros?numeroDaPagina=1
 ```
 
-| Parâmetro (Opcional) | Tipo | Padrão | Descrição                                    |
-|----------------------|---|---|----------------------------------------------|
-| `numeroDaPagina`     | Integer | `1` | Temos 60 itens por página, e ela inicia na 1 |
+| Parâmetro (Opcional) | Tipo | Padrão | Descrição |
+|----------------------|---|---|---|
+| `numeroDaPagina` | Integer | `1` | Temos 60 itens por página, e ela inicia na 1 |
 
 **Resposta:** `200 OK`
+```
+Content-Type: application/json
+```
 ```json
 {
   "livros": [...],
@@ -271,6 +280,9 @@ GET /livros/{id}
 ```
 
 **Resposta:** `200 OK`
+```
+Content-Type: application/json
+```
 ```json
 {
   "id": 1,
@@ -288,6 +300,7 @@ GET /livros/{id}
 
 ```
 PUT /livros/{id}
+Content-Type: application/json
 ```
 
 **Body:**
@@ -300,6 +313,9 @@ PUT /livros/{id}
 ```
 
 **Resposta:** `200 OK`
+```
+Content-Type: application/json
+```
 
 > ⚠️ ID não encontrado retorna `404 Not Found`.
 
