@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -29,6 +30,7 @@ public class LivroService {
         this.livroMapper = livroMapper;
     }
 
+    @Transactional
     public LivroResponseDTO salvarLivro(LivroRequestDTO data) {
         log.info("Salvando novo livro com título: {}", data.titulo());
         LivroModel livroModel = livroMapper.dtoRequestToModel(data);
@@ -37,6 +39,7 @@ public class LivroService {
         return livroMapper.modelToDtoResponse(livroModel);
     }
 
+    @Transactional(readOnly = true)
     public LivroPaginacaoResponseDTO listarLivros(Integer numeroDaPagina) {
         log.info("Listagem de livros solicitada. Página recebida: {}", numeroDaPagina);
         if (numeroDaPagina <= 0) {
@@ -52,6 +55,7 @@ public class LivroService {
         return new LivroPaginacaoResponseDTO(livros.getContent(), totalDePaginas);
     }
 
+    @Transactional
     public LivroResponseDTO atualizarLivro(LivroRequestDTO data, Long id){
         log.info("Atualizando livro - id: {}", id);
         LivroModel livro = livroRepository.findById(id).orElseThrow(() -> new LivroNaoEncontrado("Não encontramos nenhum livro com o id " + id));
@@ -62,6 +66,7 @@ public class LivroService {
         return this.livroMapper.modelToDtoResponse(livro);
     }
 
+    @Transactional(readOnly = true)
     public LivroResponseDTO encontrarPeloId(Long id){
         log.info("Buscando livro - id: {}", id);
         LivroModel livro = livroRepository.findById(id).orElseThrow(() -> new LivroNaoEncontrado("Não encontramos nenhum livro com o id " + id));
@@ -69,6 +74,7 @@ public class LivroService {
         return this.livroMapper.modelToDtoResponse(livro);
     }
 
+    @Transactional
     public void deletarLivroPeloId(Long id) {
         log.info("Deletando livro - id: {}", id);
         LivroModel livro = livroRepository.findById(id).orElseThrow(() -> new LivroNaoEncontrado("Não encontramos nenhum livro com o id " + id));
