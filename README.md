@@ -359,6 +359,7 @@ src/
 - **Separação em DTOs:** mantém a entidade de persistência isolada dos dados expostos pela API, seguindo boas práticas de arquitetura.
 - **Paginação:** a listagem usa paginação para evitar sobrecarga em consultas com muitos registros.
 - **Rede isolada no Docker:** o banco de dados não é acessível diretamente por serviços externos à `database-network`, garantindo maior segurança na comunicação entre os containers.
+- **Stack Trace:** foi configurado `server.error.include-stacktrace=never` no `application.properties` para evitar o vazamento de informações sensíveis (stack trace) para o cliente, seguindo boas práticas de segurança.
 
 ## 🚀 Melhorias que eu faria futuramente
 
