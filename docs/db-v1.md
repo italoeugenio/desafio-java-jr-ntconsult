@@ -1,6 +1,6 @@
 # 📘 Banco de Dados de Desafio de Assinantes
 
-Este banco de dados armazena informações sobre os livros cadastrados no sistema, incluindo autoria e datas de controle.
+Este banco de dados armazena informações sobre os livros cadastrados no sistema
 
 ---
 
