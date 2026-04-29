@@ -36,10 +36,24 @@ public class LivroModel {
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm = LocalDateTime.now();
 
-    public void atualizar(LivroRequestDTO data){
-        this.titulo = data.titulo();
-        this.autor = data.autor();
-        this.anoPublicacao = data.anoPublicacao();
-        this.atualizadoEm = LocalDateTime.now();
+    public void atualizar(LivroRequestDTO data) {
+        boolean isAlterou = false;
+
+        if (data.titulo() != null && !data.titulo().equals(this.titulo)) {
+            this.titulo = data.titulo();
+            isAlterou = true;
+        }
+        if (data.autor() != null && !data.autor().equals(this.autor)) {
+            this.autor = data.autor();
+            isAlterou = true;
+        }
+        if (data.anoPublicacao() != null && !data.anoPublicacao().equals(this.anoPublicacao)) {
+            this.anoPublicacao = data.anoPublicacao();
+            isAlterou = true;
+        }
+
+        if (isAlterou) {
+            this.atualizadoEm = LocalDateTime.now();
+        }
     }
 }
