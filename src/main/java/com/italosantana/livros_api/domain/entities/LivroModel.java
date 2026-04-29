@@ -1,5 +1,6 @@
 package com.italosantana.livros_api.domain.entities;
 
+import com.italosantana.livros_api.domain.dtos.LivroRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 @EqualsAndHashCode(of = "id")
 @Table(name = "TB_LIVROS")
 public class LivroModel {
@@ -33,4 +35,11 @@ public class LivroModel {
 
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm = LocalDateTime.now();
+
+    public void atualizar(LivroRequestDTO data){
+        this.titulo = data.titulo();
+        this.autor = data.autor();
+        this.anoPublicacao = data.anoPublicacao();
+        this.atualizadoEm = LocalDateTime.now();
+    }
 }

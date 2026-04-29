@@ -9,14 +9,11 @@ import com.italosantana.livros_api.exception.page.PaginaInvalidaException;
 import com.italosantana.livros_api.mapper.LivroMapper;
 import com.italosantana.livros_api.repository.LivroRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 
 @Service
@@ -58,11 +55,14 @@ public class LivroService {
     @Transactional
     public LivroResponseDTO atualizarLivro(LivroRequestDTO data, Long id){
         log.info("Atualizando livro - id: {}", id);
+
         LivroModel livro = livroRepository.findById(id).orElseThrow(() -> new LivroNaoEncontrado("Não encontramos nenhum livro com o id " + id));
-        BeanUtils.copyProperties(data, livro);
-        livro.setAtualizadoEm(LocalDateTime.now());
+        livro.atualizar(data);
         livroRepository.save(livro);
+
         log.info("Livro atualizado com sucesso - id: {}, novo título: {}", id, livro.getTitulo());
+        log.info("Dados do livro atualizados: {}", livro);
+
         return this.livroMapper.modelToDtoResponse(livro);
     }
 
