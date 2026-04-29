@@ -368,3 +368,4 @@ src/
 - Utilizar o **Flyway** para versionamento e controle das migrações do banco de dados.
 - Criar filtros no endpoint de listagem de livros utilizando **Specification** para permitir consultas mais flexíveis e dinâmicas.
 - Proteger a api utilizando Spring Security.
+- **Otimização de Consultas no Banco de Dados:** Criar **Índices (Indexes)** no PostgreSQL para colunas frequentemente pesquisadas (como `titulo` e `autor`), evitando *Full Table Scans* e garantindo alta performance na busca, mesmo com vários registros.
